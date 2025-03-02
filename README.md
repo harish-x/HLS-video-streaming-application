@@ -73,7 +73,7 @@ The application consists of the following components:
      - .env for frontend react app
        
       ```
-      `VITE_VIDEOSTREAMING_SERVER_BASEURL=http://localhost:3000/api/v1
+        VITE_VIDEOSTREAMING_SERVER_BASEURL=http://localhost:3000/api/v1
       ```
 
       - .env for both servers 
