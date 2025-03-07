@@ -6,8 +6,9 @@ This project is a simple HLS streaming application with two backend servers resp
 
 ### Architecture
 
-![image](https://github.com/user-attachments/assets/785e1ce8-1575-4e93-ac32-da94f3720c05)
 
+
+![Screenshot from 2025-03-07 12-35-13](https://github.com/user-attachments/assets/3688e4b8-e570-4059-98fc-d519319225d1)
 
 The application consists of the following components:
 
