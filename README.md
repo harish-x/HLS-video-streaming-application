@@ -1,58 +1,57 @@
-<h1 >HLS Streaming Application</h1>
+# HLS Streaming Application
 
-
-### Overview
+## Overview
 This project is a simple HLS streaming application with two backend servers responsible for video streaming, uploading, and processing. It leverages Azure Blob Storage, Azure CDN, and RabbitMQ for efficient video delivery and processing.
 
-### Architecture
-
-
+## Architecture
 
 ![Screenshot from 2025-03-07 12-35-13](https://github.com/user-attachments/assets/3688e4b8-e570-4059-98fc-d519319225d1)
 
 The application consists of the following components:
 
- #### 1. Video Streaming Server
- 
-  - Handles video streaming and uploading.
-  - Generates SAS (Shared Access Signature) URLs for secure video upload and streaming.
-  - Streams videos from a private Azure Blob Storage.
+1. **Video Streaming Server**
+   - Handles video streaming and uploading.
+   - Generates SAS (Shared Access Signature) URLs for secure video upload and streaming.
+   - Streams videos from a private Azure Blob Storage.
 
- #### 2. Video Processing Server
-
+2. **Video Processing Server**
    - Processes uploaded videos using FFmpeg.
    - Stores processed videos in Azure Blob Storage.
    - Sends processed video URLs to the frontend via RabbitMQ.
+   - Only spins up when there are messages in the RabbitMQ queue (queue size > 0) using Azure Monitor.
 
- #### 3. Azure Blob Storage
+3. **Azure Blob Storage**
+   - A temporary storage container for uploaded videos.
+   - A private storage container for streaming, accessible only via SAS tokens.
 
-  - A temporary storage container for uploaded videos.
-  - A private storage container for streaming, accessible only via SAS tokens.
-
- #### 4. Azure CDN + Front Door
-
+4. **Azure CDN + Front Door**
    - Serves processed videos efficiently to users.
 
- #### 5. RabbitMQ
-
+5. **RabbitMQ**
    - Manages message queues to process videos asynchronously.
 
+6. **Azure Monitor + Auto Scaling**
+   - Monitors the RabbitMQ queue size.
+   - Spins up the `video-processing-server` only when the queue size is greater than 0.
+
+## Features
+- Secure video upload and retrieval using SAS tokens.
+- Video processing with FFmpeg.
+- HLS streaming with Azure Blob Storage and CDN.
+- Asynchronous message-based processing with RabbitMQ.
+- **Auto-scaling of the video-processing server using Azure Monitor.**
+
+## Setup Instructions
+
+### Prerequisites
+- Node.js (for backend servers)
+- FFmpeg (for video processing)
+- RabbitMQ (for messaging)
+- Azure Storage Account
+- Azure CDN & Front Door
+- Azure Monitor & Auto Scaling Setup
 
 
-### Features
-
-  - Secure video upload and retrieval using SAS tokens.
-  - Video processing with FFmpeg.
-  - HLS streaming with Azure Blob Storage and CDN.
-  - Asynchronous message-based processing with RabbitMQ.
-
-### Setup Instructions
-
-  - Node.js (for backend servers)
-  - FFmpeg (for video processing)
-  - RabbitMQ (for messaging)
-  - Azure Storage Account
-  - Azure CDN & Front Door
 
 ### Installation
 
